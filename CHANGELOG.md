@@ -2,11 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0] - 2023-08-22
+## [0.1.1] - 2023-08-22
 
 ### Bug Fixes
 
 - Release branch name ([db2dba9](https://github.com/dustinblackman/cargo-gha/commit/db2dba9670e61d8a27dd698875c98aad0b135b23))
+
+### Documentation
+
+- Add changelog ([b787739](https://github.com/dustinblackman/cargo-gha/commit/b78773931da49083313f280803231b16df3bf368))
 
 ### Features
 
