@@ -1,0 +1,6 @@
+[alias]
+binstall = ["bin", "cargo-binstall"]
+cmd = ["bin", "cargo-cmd"]
+deny = ["bin", "cargo-deny"]
+dist = ["bin", "cargo-dist"]
+release = ["bin", "cargo-release"]

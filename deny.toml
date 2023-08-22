@@ -1,0 +1,27 @@
+[advisories]
+git-fetch-with-cli = true
+
+[licenses]
+unlicensed = "deny"
+copyleft = "deny"
+allow = [
+  "MIT",
+  "Apache-2.0",
+  "BSD-3-Clause",
+]
+exceptions = [
+  { allow = ["Unicode-DFS-2016"], name = "unicode-ident" },
+  { allow = ["ISC", "MIT", "OpenSSL"], name = "ring" },
+  { allow = ["ISC"], name = "untrusted" },
+  { allow = ["ISC"], name = "simple_asn1" },
+  { allow = ["ISC"], name = "rustls-webpki" },
+  { allow = ["ISC"], name = "webpki" },
+  { allow = ["MPL-2.0"], name = "webpki-roots" },
+]
+
+[[licenses.clarify]]
+name = "ring"
+expression = "ISC AND MIT AND OpenSSL"
+license-files = [
+  { path = "LICENSE", hash = 0xbd0eed23 },
+]

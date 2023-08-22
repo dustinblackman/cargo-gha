@@ -1,0 +1,102 @@
+[package]
+name = "cargo-gha"
+version = "0.1.0"
+authors = ["Dustin Blackman"]
+categories = ["command-line-utilities", "development-tools::cargo-plugins"]
+edition = "2021"
+homepage = "https://github.com/dustinblackman/cargo-gha"
+keywords = ["dev-experiance", "developer-experiance", "bin", "cache", "cli"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/dustinblackman/cargo-gha"
+description = "Version lock, cache, and run binaries from any Github Release assets. Pull in external tools and keep the versions in sync across your team, and forget installing globally."
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.75"
+async-compression = { version = "0.4.1", features = ["tokio", "gzip", "xz"] }
+clap = "4.3.23"
+ctrlc = "3.4.0"
+detect-targets = "0.1.10"
+dialoguer = { version = "0.10.4", default-features = false, features = ["editor"] }
+octocrab = { version = "0.29.3", default-features = false, features = ["timeout", "retry", "rustls"] }
+owo-colors = "3.5.0"
+reqwest = { version = "0.11.18", default-features = false, features = ["stream", "rustls-tls", "json"] }
+serde = { version = "1.0.185", features = ["derive"] }
+tokio = { version = "1.32.0", features = ["macros", "rt-multi-thread"] }
+tokio-stream = "0.1.14"
+tokio-tar = "0.3.1"
+tokio-util = "0.7.8"
+toml = "0.7.6"
+toml_edit = "0.19.14"
+walkdir = "2.3.3"
+zip = { version = "0.6.6", default-features = false, features = ["deflate"] }
+
+[dev-dependencies]
+cargo-husky = { version = "1.5.0", default-features = false, features = ["user-hooks"] }
+
+[package.metadata.bin]
+cargo-binstall = { version = "1.2.1" }
+cargo-bundle-licenses = { version = "1.0.1" }
+cargo-cmd = { version = "0.3.1" }
+cargo-deny = { version = "0.13.5" }
+cargo-dist = { version = "0.1.0-prerelease.10" }
+cargo-release = { version = "0.24.11" }
+committed = { version = "1.0.20" }
+dprint = { version = "0.40.2" }
+git-cliff = { version = "1.2.0" }
+
+[package.metadata.gha]
+targets = ["x86_64-apple-darwin"]
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+strip = "symbols"
+
+[profile.dist]
+inherits = "release"
+
+# Config for 'cargo dist'
+[workspace.metadata.dist]
+cargo-dist-version = "0.1.0-prerelease.10"
+ci = ["github"]
+installers = []
+targets = ["x86_64-unknown-linux-gnu", "x86_64-apple-darwin", "aarch64-apple-darwin"]
+unix-archive = ".tar.gz"
+include = ["THIRDPARTY.md"]
+
+# Config for 'cargo release'
+[package.metadata.release]
+pre-release-hook = ["bash", "-c", "cargo cmd lint && cargo bin git-cliff -o CHANGELOG.md --tag {{version}} && cargo bin dprint fmt"]
+allow-branch = ["master"]
+
+[package.metadata.commands]
+lint = '''set -e
+cargo cmd setup-nightly
+cargo +cargogha-nightly fmt -- --check
+cargo clippy
+cargo bin dprint check
+cargo deny check licenses -s
+'''
+lint-fix = '''set -e
+cargo cmd setup-nightly
+cargo clippy --fix --allow-dirty
+cargo fix --allow-dirty
+cargo +cargogha-nightly fmt
+cargo bin dprint fmt
+'''
+
+get-nightly-name = 'echo cargogha-nightly'
+setup-nightly = '''
+  export NIGHTLY=nightly-2023-06-16
+  rustup toolchain list -v | grep -q "$NIGHTLY" || rustup toolchain install "$NIGHTLY" --force --component llvm-tools-preview rustfmt
+  rustup toolchain link cargogha-nightly "$(rustup toolchain list -v | grep $NIGHTLY | grep '^nightly-' | awk '{print $2}')"
+'''
+
+thirdparty = '''set -e
+  cargo bin cargo-bundle-licenses --format json --output THIRDPARTY.json
+  rm -f THIRDPARTY.md
+  cat THIRDPARTY.json | sd 'NOT FOUND' '' | jq -rc '.third_party_libraries[]' | jq -rcs '.[] | "## \(.package_name) - \(.licenses[0].license)\n\n\(.licenses[0].text)\n---\n"' > THIRDPARTY.md
+'''
