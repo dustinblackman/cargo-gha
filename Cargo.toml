@@ -70,7 +70,7 @@ include = ["THIRDPARTY.md"]
 # Config for 'cargo release'
 [package.metadata.release]
 pre-release-hook = ["bash", "-c", "cargo cmd lint && cargo bin git-cliff -o CHANGELOG.md --tag {{version}} && cargo bin dprint fmt"]
-allow-branch = ["master"]
+allow-branch = ["main"]
 
 [package.metadata.commands]
 lint = '''set -e
