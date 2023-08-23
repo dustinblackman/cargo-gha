@@ -98,5 +98,6 @@ setup-nightly = '''
 thirdparty = '''set -e
   cargo bin cargo-bundle-licenses --format json --output THIRDPARTY.json
   rm -f THIRDPARTY.md
-  cat THIRDPARTY.json | sed 's/NOT FOUND//g' | jq -rc '.third_party_libraries[]' | jq -rcs '.[] | "## \(.package_name) - \(.licenses[0].license)\n\n\(.licenses[0].text)\n---\n"' > THIRDPARTY.md
+  cat THIRDPARTY.json | sed 's/NOT FOUND//g' | jq -rc '.third_party_libraries[]' | jq -rcs '.[] | "## \(.package_name) - \(.licenses[0].license)\n\n\(.licenses[0].text)\n\n---\n"' > THIRDPARTY.md
+  cargo bin dprint fmt
 '''
