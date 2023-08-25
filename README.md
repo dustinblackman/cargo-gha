@@ -70,7 +70,7 @@ as you wish!
 
 ### `cargo gha --install`
 
-When pulling down a new repo, or adding a step to CI, `cargo gha --install` will install or build all binaries that have not been
+When pulling down a new repo, or adding a step to CI, `cargo gha --install` will install all assets that have not been
 cached which are configured in `Cargo.toml`.
 
 ## [License](./LICENSE)
