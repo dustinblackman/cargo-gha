@@ -2,13 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2023-08-27
+
+[601c42d...02f11c1](https://github.com/dustinblackman/cargo-gha/compare/601c42d30831c0f64dff3b40de74185d8aab1f4a...02f11c1daa39c7a1bef9e220b0ac3d7f9c81e457)
+
+### Documentation
+
+- Update README.md ([4e646ba](https://github.com/dustinblackman/cargo-gha/commit/4e646baf4e15f6c5661bed8000ac4fc68902c9f5))
+
+### Features
+
+- Add wrappers ([02f11c1](https://github.com/dustinblackman/cargo-gha/commit/02f11c1daa39c7a1bef9e220b0ac3d7f9c81e457))
+
+### Miscellaneous Tasks
+
+- Clean up third party command ([ecc888d](https://github.com/dustinblackman/cargo-gha/commit/ecc888dba6674c4663768071ad5aca732d0e07e5))
+
 ## [0.1.2] - 2023-08-22
 
-[625c5f8...0bb4272](https://github.com/dustinblackman/cargo-gha/compare/625c5f8760e360edc1367dd086a78d43b1960c0c...0bb42723ccfd9d4d3b8640a989a27a1517fc93d4)
+[625c5f8...601c42d](https://github.com/dustinblackman/cargo-gha/compare/625c5f8760e360edc1367dd086a78d43b1960c0c...601c42d30831c0f64dff3b40de74185d8aab1f4a)
 
 ### Bug Fixes
 
 - Thirdparty doc gen command ([0bb4272](https://github.com/dustinblackman/cargo-gha/commit/0bb42723ccfd9d4d3b8640a989a27a1517fc93d4))
+
+### Miscellaneous Tasks
+
+- Release cargo-gha version 0.1.2 ([601c42d](https://github.com/dustinblackman/cargo-gha/commit/601c42d30831c0f64dff3b40de74185d8aab1f4a))
 
 ## [0.1.1] - 2023-08-22
 
