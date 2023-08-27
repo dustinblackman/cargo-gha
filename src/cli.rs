@@ -11,6 +11,7 @@ use crate::add_asset;
 use crate::binary;
 use crate::cargo_toml;
 use crate::filesystem;
+use crate::wrappers;
 
 async fn run_binary(binary_name: String, args: Vec<String>) -> Result<()> {
     let assets = cargo_toml::deserailize_metadata()?.assets;
@@ -55,8 +56,8 @@ async fn run_binary(binary_name: String, args: Vec<String>) -> Result<()> {
 
 async fn install() -> Result<()> {
     let assets = cargo_toml::deserailize_metadata()?.assets;
-    for asset in assets {
-        if !filesystem::get_asset_directory(&asset)?.exists() {
+    for asset in &assets {
+        if !filesystem::get_asset_directory(asset)?.exists() {
             println!(
                 "{}",
                 format!(
@@ -66,9 +67,11 @@ async fn install() -> Result<()> {
                 )
                 .yellow()
             );
-            binary::download(&asset).await?;
+            binary::download(asset).await?;
         }
     }
+
+    wrappers::create(assets)?;
 
     println!("{}", "Done!".green());
     return Ok(());

@@ -11,6 +11,7 @@ use owo_colors::OwoColorize;
 use crate::binary;
 use crate::cargo_toml;
 use crate::filesystem;
+use crate::wrappers;
 
 fn init_ctrl_c_handler() {
     ctrlc::set_handler(move || {
@@ -124,6 +125,7 @@ pub async fn interactive_add(url: String) -> Result<()> {
         .collect::<Vec<String>>();
 
     cargo_toml::add_asset(&asset)?;
+    wrappers::create(vec![asset])?;
 
     eprintln!("{}", "Done!".green());
     return Ok(());

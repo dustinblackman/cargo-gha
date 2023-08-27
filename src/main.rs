@@ -6,6 +6,7 @@ mod binary;
 mod cargo_toml;
 mod cli;
 mod filesystem;
+mod wrappers;
 
 use std::process;
 
