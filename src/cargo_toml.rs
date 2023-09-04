@@ -41,9 +41,15 @@ pub fn deserailize_metadata() -> Result<Metadata> {
     let metadata_res: Result<MetadataValue, toml::de::Error> = toml::from_str(&metadata_str);
     let metadata = metadata_res?;
 
-    let mut assets: Vec<Asset> = vec![];
+    let mut asset_str = "".to_string();
     if doc["package"]["metadata"]["gha"].get("assets").is_some() {
-        let asset_str = doc["package"]["metadata"]["gha"]["assets"].to_string();
+        asset_str = doc["package"]["metadata"]["gha"]["assets"].to_string();
+    } else if doc["workspace"]["metadata"]["gha"].get("assets").is_some() {
+        asset_str = doc["workspace"]["metadata"]["gha"]["assets"].to_string();
+    }
+
+    let mut assets: Vec<Asset> = vec![];
+    if !asset_str.is_empty() {
         let asset_res: Result<HashMap<String, Asset>, toml::de::Error> = toml::from_str(&asset_str);
         assets = asset_res?
             .values()
