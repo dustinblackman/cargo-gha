@@ -2,9 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2023-09-04
+
+[e8ce2ae...071f0ed](https://github.com/dustinblackman/cargo-gha/compare/e8ce2ae81dbcaf73a316d92184894d2157560153...071f0ede5550933c8a086d8911c6522c40dab1be)
+
+### Features
+
+- Add workspace support ([071f0ed](https://github.com/dustinblackman/cargo-gha/commit/071f0ede5550933c8a086d8911c6522c40dab1be))
+
 ## [0.2.0] - 2023-08-27
 
-[601c42d...02f11c1](https://github.com/dustinblackman/cargo-gha/compare/601c42d30831c0f64dff3b40de74185d8aab1f4a...02f11c1daa39c7a1bef9e220b0ac3d7f9c81e457)
+[601c42d...e8ce2ae](https://github.com/dustinblackman/cargo-gha/compare/601c42d30831c0f64dff3b40de74185d8aab1f4a...e8ce2ae81dbcaf73a316d92184894d2157560153)
 
 ### Documentation
 
@@ -17,6 +25,7 @@ All notable changes to this project will be documented in this file.
 ### Miscellaneous Tasks
 
 - Clean up third party command ([ecc888d](https://github.com/dustinblackman/cargo-gha/commit/ecc888dba6674c4663768071ad5aca732d0e07e5))
+- Release cargo-gha version 0.2.0 ([e8ce2ae](https://github.com/dustinblackman/cargo-gha/commit/e8ce2ae81dbcaf73a316d92184894d2157560153))
 
 ## [0.1.2] - 2023-08-22
 
