@@ -37,7 +37,6 @@ pub fn get_asset_directory(asset: &cargo_toml::Asset) -> Result<PathBuf> {
 pub fn list_binaries(asset: &cargo_toml::Asset) -> Result<Vec<PathBuf>> {
     let archive_path = get_asset_directory(asset)?;
     let binaries = WalkDir::new(archive_path)
-        .max_depth(2)
         .into_iter()
         .filter_map(|e| return e.ok())
         .filter(|e| {
