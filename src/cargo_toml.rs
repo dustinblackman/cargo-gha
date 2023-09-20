@@ -42,9 +42,11 @@ pub fn deserailize_metadata() -> Result<Metadata> {
     let metadata = metadata_res?;
 
     let mut asset_str = "".to_string();
-    if doc["package"]["metadata"]["gha"].get("assets").is_some() {
+    if doc.get("package").is_some() && doc["package"]["metadata"]["gha"].get("assets").is_some() {
         asset_str = doc["package"]["metadata"]["gha"]["assets"].to_string();
-    } else if doc["workspace"]["metadata"]["gha"].get("assets").is_some() {
+    } else if doc.get("workspace").is_some()
+        && doc["workspace"]["metadata"]["gha"].get("assets").is_some()
+    {
         asset_str = doc["workspace"]["metadata"]["gha"]["assets"].to_string();
     }
 
