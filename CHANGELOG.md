@@ -2,9 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.1] - 2023-09-20
+
+[8ce1d2c...d991bd4](https://github.com/dustinblackman/cargo-gha/compare/8ce1d2c2511ac8dbfd13bc5f61001a83f83407d8...d991bd4b6bda3fd5a30f508ee46ae9f952b0a142)
+
+### Bug Fixes
+
+- Duplicate PATH entries ([d991bd4](https://github.com/dustinblackman/cargo-gha/commit/d991bd4b6bda3fd5a30f508ee46ae9f952b0a142))
+
 ## [0.4.0] - 2023-09-20
 
-[3df5b98...d9d5360](https://github.com/dustinblackman/cargo-gha/compare/3df5b989fd68a76f948f5723ebbc1d2018a11ce8...d9d5360be37e866819c0fb102b7659623b42891e)
+[3df5b98...8ce1d2c](https://github.com/dustinblackman/cargo-gha/compare/3df5b989fd68a76f948f5723ebbc1d2018a11ce8...8ce1d2c2511ac8dbfd13bc5f61001a83f83407d8)
 
 ### Bug Fixes
 
@@ -14,6 +22,10 @@ All notable changes to this project will be documented in this file.
 ### Features
 
 - Add bin alias directory to start of path ([d9d5360](https://github.com/dustinblackman/cargo-gha/commit/d9d5360be37e866819c0fb102b7659623b42891e))
+
+### Miscellaneous Tasks
+
+- Release cargo-gha version 0.4.0 ([8ce1d2c](https://github.com/dustinblackman/cargo-gha/commit/8ce1d2c2511ac8dbfd13bc5f61001a83f83407d8))
 
 ## [0.3.0] - 2023-09-04
 
