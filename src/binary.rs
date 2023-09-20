@@ -98,7 +98,7 @@ pub fn run(bin_path: path::PathBuf, args: Vec<String>) -> Result<()> {
 
     // https://github.com/dustinblackman/cargo-run-bin
     let runbin = project_root.join(".bin/.bin");
-    if runbin.exists() {
+    if runbin.exists() && !system_shell_paths.contains(&runbin.to_string_lossy().to_string()) {
         shell_paths.push(runbin.to_string_lossy().to_string());
     }
 
