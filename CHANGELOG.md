@@ -2,13 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2023-09-20
+
+[3df5b98...d9d5360](https://github.com/dustinblackman/cargo-gha/compare/3df5b989fd68a76f948f5723ebbc1d2018a11ce8...d9d5360be37e866819c0fb102b7659623b42891e)
+
+### Bug Fixes
+
+- Reading workspaces ([acbfaab](https://github.com/dustinblackman/cargo-gha/commit/acbfaab9658530bc08aeda6c4b3feba564011d0d))
+- Reading large folders for binaries ([d4a420a](https://github.com/dustinblackman/cargo-gha/commit/d4a420a7b1e834900c788a2b9bbc8fd886271e5d))
+
+### Features
+
+- Add bin alias directory to start of path ([d9d5360](https://github.com/dustinblackman/cargo-gha/commit/d9d5360be37e866819c0fb102b7659623b42891e))
+
 ## [0.3.0] - 2023-09-04
 
-[e8ce2ae...071f0ed](https://github.com/dustinblackman/cargo-gha/compare/e8ce2ae81dbcaf73a316d92184894d2157560153...071f0ede5550933c8a086d8911c6522c40dab1be)
+[e8ce2ae...3df5b98](https://github.com/dustinblackman/cargo-gha/compare/e8ce2ae81dbcaf73a316d92184894d2157560153...3df5b989fd68a76f948f5723ebbc1d2018a11ce8)
 
 ### Features
 
 - Add workspace support ([071f0ed](https://github.com/dustinblackman/cargo-gha/commit/071f0ede5550933c8a086d8911c6522c40dab1be))
+
+### Miscellaneous Tasks
+
+- Release cargo-gha version 0.3.0 ([3df5b98](https://github.com/dustinblackman/cargo-gha/commit/3df5b989fd68a76f948f5723ebbc1d2018a11ce8))
 
 ## [0.2.0] - 2023-08-27
 
