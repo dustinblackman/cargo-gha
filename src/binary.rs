@@ -82,11 +82,29 @@ pub async fn download(asset: &cargo_toml::Asset) -> Result<path::PathBuf> {
 }
 
 pub fn run(bin_path: path::PathBuf, args: Vec<String>) -> Result<()> {
+    let mut system_shell_paths = env::var("PATH")
+        .unwrap_or("".to_string())
+        .split(':')
+        .map(|e| return e.to_string())
+        .collect::<Vec<String>>();
+
+    let project_root = filesystem::get_project_root()?;
+    let mut shell_paths = vec![project_root.join(".gha/.bin").to_string_lossy().to_string()];
+
+    // https://github.com/dustinblackman/cargo-run-bin
+    let runbin = project_root.join(".bin/.bin");
+    if runbin.exists() {
+        shell_paths.append(&mut vec![runbin.to_string_lossy().to_string()]);
+    }
+
+    shell_paths.append(&mut system_shell_paths);
+
     let spawn = process::Command::new(&bin_path)
         .stdout(process::Stdio::inherit())
         .stderr(process::Stdio::inherit())
         .stdin(process::Stdio::inherit())
         .args(&args)
+        .env("PATH", shell_paths.join(":"))
         .spawn();
 
     if let Ok(mut spawn) = spawn {

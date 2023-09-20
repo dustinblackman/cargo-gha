@@ -40,7 +40,7 @@ pub fn create(assets: Vec<cargo_toml::Asset>) -> Result<()> {
             let script = create_shell_script(&binary)?;
             let bin_path = bin_dir.join(&binary);
             if bin_path.exists() {
-                fs::remove_file(&bin_path)?;
+                continue;
             }
             let mut f = fs::OpenOptions::new()
                 .create(true)

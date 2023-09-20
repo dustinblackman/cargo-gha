@@ -8,10 +8,10 @@ use clap::Command;
 use owo_colors::OwoColorize;
 
 use crate::add_asset;
+use crate::alias;
 use crate::binary;
 use crate::cargo_toml;
 use crate::filesystem;
-use crate::wrappers;
 
 async fn run_binary(binary_name: String, args: Vec<String>) -> Result<()> {
     let assets = cargo_toml::deserailize_metadata()?.assets;
@@ -49,6 +49,7 @@ async fn run_binary(binary_name: String, args: Vec<String>) -> Result<()> {
         bail!(format!("Binary {binary_name} is missing in the installation. Review the contents in .gha and consider removing/adding the package"));
     }
 
+    alias::create(assets.clone())?;
     binary::run(binary_absolute_path.unwrap().to_path_buf(), args)?;
 
     return Ok(());
@@ -71,7 +72,7 @@ async fn install() -> Result<()> {
         }
     }
 
-    wrappers::create(assets)?;
+    alias::create(assets)?;
 
     println!("{}", "Done!".green());
     return Ok(());
