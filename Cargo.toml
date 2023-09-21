@@ -37,7 +37,7 @@ zip = { version = "0.6.6", default-features = false, features = ["deflate"] }
 cargo-husky = { version = "1.5.0", default-features = false, features = ["user-hooks"] }
 
 [package.metadata.bin]
-cargo-binstall = { version = "1.2.1" }
+cargo-binstall = { version = "1.3.1" }
 cargo-bundle-licenses = { version = "1.0.1" }
 cargo-cmd = { version = "0.3.1" }
 cargo-deny = { version = "0.13.5" }
