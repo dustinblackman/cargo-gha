@@ -2,13 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.5] - 2023-09-22
+
+[566c05c...e3b7824](https://github.com/dustinblackman/cargo-gha/compare/566c05ca68b64914ae97d0275418fd418db04380...e3b7824085f0d55522f7d992d07791f69aee1e13)
+
+### Miscellaneous Tasks
+
+- Update cargo dist to latest ([e3b7824](https://github.com/dustinblackman/cargo-gha/commit/e3b7824085f0d55522f7d992d07791f69aee1e13))
+
 ## [0.4.4] - 2023-09-21
 
-[f8ab230...3adaffa](https://github.com/dustinblackman/cargo-gha/compare/f8ab2300180c5eb10f03cace5b0298b7d5e0e627...3adaffa265952163f0c77b962b9353ac68e62bff)
+[f8ab230...566c05c](https://github.com/dustinblackman/cargo-gha/compare/f8ab2300180c5eb10f03cace5b0298b7d5e0e627...566c05ca68b64914ae97d0275418fd418db04380)
 
 ### Bug Fixes
 
 - Binstall ([3adaffa](https://github.com/dustinblackman/cargo-gha/commit/3adaffa265952163f0c77b962b9353ac68e62bff))
+
+### Miscellaneous Tasks
+
+- Release cargo-gha version 0.4.4 ([566c05c](https://github.com/dustinblackman/cargo-gha/commit/566c05ca68b64914ae97d0275418fd418db04380))
 
 ## [0.4.3] - 2023-09-21
 
