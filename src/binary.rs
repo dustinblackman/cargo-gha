@@ -91,13 +91,16 @@ pub fn run(bin_path: path::PathBuf, args: Vec<String>) -> Result<()> {
     let project_root = filesystem::get_project_root()?;
     let mut shell_paths = vec![];
 
-    let gha_bin = project_root.join(".gha/.bin").to_string_lossy().to_string();
+    let gha_bin = project_root
+        .join(".gha/.shims")
+        .to_string_lossy()
+        .to_string();
     if !system_shell_paths.contains(&gha_bin) {
         shell_paths.push(gha_bin);
     }
 
     // https://github.com/dustinblackman/cargo-run-bin
-    let runbin = project_root.join(".bin/.bin");
+    let runbin = project_root.join(".bin/.shims");
     if runbin.exists() && !system_shell_paths.contains(&runbin.to_string_lossy().to_string()) {
         shell_paths.push(runbin.to_string_lossy().to_string());
     }

@@ -8,7 +8,7 @@ use anyhow::Result;
 use crate::cargo_toml;
 use crate::filesystem;
 
-fn create_shell_script(binary: &str) -> Result<String> {
+fn create_shim(binary: &str) -> Result<String> {
     let shell = env::var("SHELL")
         .unwrap_or("bash".to_string())
         .split('/')
@@ -30,14 +30,14 @@ fi"#
 }
 
 pub fn create(assets: Vec<cargo_toml::Asset>) -> Result<()> {
-    let bin_dir = filesystem::get_project_root()?.join(".gha/.bin");
+    let bin_dir = filesystem::get_project_root()?.join(".gha/.shims");
     if !bin_dir.exists() {
         fs::create_dir_all(&bin_dir)?;
     }
 
     for asset in assets {
         for binary in asset.binaries {
-            let script = create_shell_script(&binary)?;
+            let script = create_shim(&binary)?;
             let bin_path = bin_dir.join(&binary);
             if bin_path.exists() {
                 continue;
