@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [0.4.6](https://github.com/dustinblackman/cargo-run-bin/compare/v0.4.5..0.4.6) - 2023-10-06
+
+### 📚 Documentation
+
+- Update changelog format - ([0069615](https://github.com/dustinblackman/cargo-run-bin/commit/00696155fd2fa714ef36ee08d894ac15275c7bb8))
 
 ### ⚙️ Miscellaneous Tasks
 
