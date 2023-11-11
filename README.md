@@ -1,4 +1,6 @@
-# cargo-gha
+<h1 align=center>cargo-gha</h1>
+
+![cargo-gha](.github/banner.png)
 
 > Version lock, cache, and run binaries from any Github Release assets. Pull in external tools and keep the versions in sync across your team, and forget installing globally.
 
