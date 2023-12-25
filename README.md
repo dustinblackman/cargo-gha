@@ -13,8 +13,6 @@
 
 ## Overview
 
-**Notice:** This is an early release as the mechanics of the tool are fleshed out. Tests have yet to be completed, changes are expected.
-
 A companion tool to [`cargo-run-bin`](https://github.com/dustinblackman/cargo-run-bin), `cargo-gha` handles downloading
 and persisting tools from any Github Release assets, keeping versions available and in sync across your team.
 
