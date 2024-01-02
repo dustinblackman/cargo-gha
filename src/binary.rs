@@ -44,6 +44,10 @@ pub async fn download(asset: &cargo_toml::Asset) -> Result<path::PathBuf> {
     }
 
     let download_dir = filesystem::get_asset_directory(asset)?;
+    if download_dir.exists() {
+        fs::remove_dir_all(&download_dir).await?;
+    }
+
     fs::create_dir_all(&download_dir).await?;
 
     let mut archive_stream = archive_res.bytes_stream().map(|result| {
