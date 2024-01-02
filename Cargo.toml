@@ -81,3 +81,22 @@ setup-nightly = '''
   rustup toolchain list -v | grep -q "$NIGHTLY" || rustup toolchain install "$NIGHTLY" --force --component llvm-tools-preview rustfmt
   rustup toolchain link cargogha-nightly "$(rustup toolchain list -v | grep $NIGHTLY | grep '^nightly-' | awk '{print $2}')"
 '''
+
+release = '''set -e
+  export GHA_VERSION=$(cat Cargo.toml | grep version | head -n1 | awk -F '"' '{print $2}')
+
+  cargo check
+  cargo bin git-cliff -o CHANGELOG.md --tag "v$GHA_VERSION"
+  cargo bin dprint fmt
+
+  git add .
+  git commit -m "feat: Release v$GHA_VERSION"
+  git tag -a "v$GHA_VERSION" -m "v$GHA_VERSION"
+
+  git push
+  git push --tags
+
+  cargo publish
+  cargo gha gh release create "v$GHA_VERSION" --generate-notes
+  cargo bin git-cliff --latest --strip header | cargo bin dprint fmt --stdin md | cargo gha gh release edit "v$GHA_VERSION" --notes-file -
+'''
