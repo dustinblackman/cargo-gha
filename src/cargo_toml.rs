@@ -91,11 +91,16 @@ pub fn add_asset(asset: &Asset) -> Result<()> {
         Item::Value(Value::InlineTable(target_archives_table)),
     );
 
-    if doc["package"]["metadata"]["gha"].get("assets").is_none() {
-        doc["package"]["metadata"]["gha"]["assets"] = Item::ArrayOfTables(ArrayOfTables::new());
+    let mut root_key = "package";
+    if doc.get("workspace").is_some() && doc["workspace"]["metadata"].get("gha").is_some() {
+        root_key = "workspace";
     }
 
-    let assets = doc["package"]["metadata"]["gha"]["assets"]
+    if doc[root_key]["metadata"]["gha"].get("assets").is_none() {
+        doc[root_key]["metadata"]["gha"]["assets"] = Item::ArrayOfTables(ArrayOfTables::new());
+    }
+
+    let assets = doc[root_key]["metadata"]["gha"]["assets"]
         .as_array_of_tables_mut()
         .unwrap();
     assets.push(asset_table);
