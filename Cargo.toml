@@ -1,6 +1,6 @@
 [package]
 name = "cargo-gha"
-version = "0.4.6"
+version = "1.0.0"
 authors = ["Dustin Blackman"]
 categories = ["command-line-utilities", "development-tools::cargo-plugins"]
 edition = "2021"

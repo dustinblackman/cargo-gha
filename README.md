@@ -31,7 +31,7 @@ Or if using [`cargo-run-bin`](https://github.com/dustinblackman/cargo-run-bin), 
 
 ```toml
 [package.metadata.bin]
-cargo-gha = { version = "0.4.6" }
+cargo-gha = { version = "1.0.0" }
 ```
 
 ```sh

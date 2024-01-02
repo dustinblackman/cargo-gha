@@ -2,9 +2,41 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.0
+
+_2024-01-02_ - [v0.4.6...v1.0.0](https://github.com/dustinblackman/cargo-gha/compare/v0.4.6...v1.0.0)
+
+### ⛰️ Features
+
+- Add windows support - ([8f997ab](https://github.com/dustinblackman/cargo-gha/commit/8f997ab5be70cef808f58904e74a5842d2f4cd3f))
+- [**breaking**] Move to arrays for assets - ([f33ebc4](https://github.com/dustinblackman/cargo-gha/commit/f33ebc4637a8bf08ade650e172dd35bbc72feaab))
+
+### 🐛 Bug Fixes
+
+- Windows builds - ([5622e16](https://github.com/dustinblackman/cargo-gha/commit/5622e162885bf1d491b0b41c8d3d70c602123bda))
+- Version flag and no flag usage - ([29dcb44](https://github.com/dustinblackman/cargo-gha/commit/29dcb44e7dff21830fc021f24e546d6807247af8))
+- Clear download dir before adding package - ([e35f797](https://github.com/dustinblackman/cargo-gha/commit/e35f797bc68b69c55192cd1c0e3835bcc7ac48be))
+- Workspace support - ([4b6a04b](https://github.com/dustinblackman/cargo-gha/commit/4b6a04b5ebd6c1743a22406a7a014d5a67d4483f))
+- Changelog - ([ecf1279](https://github.com/dustinblackman/cargo-gha/commit/ecf12791833e937db38a4f057a9a1625996b1caa))
+
+### 📚 Documentation
+
+- Remove early release - ([192c75a](https://github.com/dustinblackman/cargo-gha/commit/192c75af1e79d05c80b98b77f65f8219205d99aa))
+
+### 🧪 Testing
+
+- Basic builds on CI - ([190bb6d](https://github.com/dustinblackman/cargo-gha/commit/190bb6d4b7658282af4eeabcefbaed0927462717))
+
+### ⚙️ Miscellaneous Tasks
+
+- Add new changelog and release script - ([88f5eff](https://github.com/dustinblackman/cargo-gha/commit/88f5eff2d5e4250097204f078a73b0999b3a4506))
+- Update rust toolchain - ([50775ec](https://github.com/dustinblackman/cargo-gha/commit/50775ecc8bb2e71d9f7d2f77ad5c1376968d15b1))
+- Update README.md - ([086dc45](https://github.com/dustinblackman/cargo-gha/commit/086dc45c9321a334784ec7afe166e689c6d3ac51))
+- Add banner - ([2712eec](https://github.com/dustinblackman/cargo-gha/commit/2712eec7ea439374672f84cd1c31404a239a51b2))
+
 ## 0.4.6
 
-_2024-01-02_ - [v0.4.5...v0.4.6](https://github.com/dustinblackman/cargo-gha/compare/v0.4.5...v0.4.6)
+_2023-10-06_ - [v0.4.5...v0.4.6](https://github.com/dustinblackman/cargo-gha/compare/v0.4.5...v0.4.6)
 
 ### 📚 Documentation
 
