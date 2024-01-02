@@ -2,12 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.1
+
+_2024-01-02_ - [v1.0.0...v1.0.1](https://github.com/dustinblackman/cargo-gha/compare/v1.0.0...v1.0.1)
+
+### 🐛 Bug Fixes
+
+- Toml path lookup - ([2ed4f32](https://github.com/dustinblackman/cargo-gha/commit/2ed4f3203d27aaef1bacc2beac1c6653c64c6052))
+
 ## 1.0.0
 
 _2024-01-02_ - [v0.4.6...v1.0.0](https://github.com/dustinblackman/cargo-gha/compare/v0.4.6...v1.0.0)
 
 ### ⛰️ Features
 
+- Release v1.0.0 - ([13f55bc](https://github.com/dustinblackman/cargo-gha/commit/13f55bc58603e8513601716513068d7b60bc36b6))
 - Add windows support - ([8f997ab](https://github.com/dustinblackman/cargo-gha/commit/8f997ab5be70cef808f58904e74a5842d2f4cd3f))
 - [**breaking**] Move to arrays for assets - ([f33ebc4](https://github.com/dustinblackman/cargo-gha/commit/f33ebc4637a8bf08ade650e172dd35bbc72feaab))
 
