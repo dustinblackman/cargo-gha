@@ -1,10 +1,10 @@
+#[cfg(target_family = "unix")]
 use std::env;
 use std::fs;
 use std::io::Write;
 use std::path;
 
 use anyhow::Result;
-use cfg_if::cfg_if;
 
 use crate::cargo_toml;
 use crate::filesystem;
@@ -70,10 +70,9 @@ pub fn create(assets: Vec<cargo_toml::Asset>) -> Result<()> {
             let mut bin_path = bin_dir.join(&binary);
 
             bin_path.set_extension("");
-            cfg_if! {
-                if #[cfg(not(target_family = "unix"))] {
-                    bin_path.set_extension("cmd");
-                }
+            #[cfg(target_family = "windows")]
+            {
+                bin_path.set_extension("cmd");
             }
             if bin_path.exists() {
                 continue;

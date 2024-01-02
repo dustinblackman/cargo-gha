@@ -1,6 +1,5 @@
 use std::env;
 use std::fs;
-use std::os::unix::prelude::PermissionsExt;
 use std::path::PathBuf;
 
 use anyhow::anyhow;
@@ -41,9 +40,24 @@ pub fn list_binaries(asset: &cargo_toml::Asset) -> Result<Vec<PathBuf>> {
         .filter_map(|e| return e.ok())
         .filter(|e| {
             let walked_path = e.path();
-            return walked_path.is_file()
-                && walked_path.extension().is_none()
-                && walked_path.metadata().unwrap().permissions().mode() & 0o111 != 0;
+            if !walked_path.is_file() {
+                return false;
+            }
+
+            #[cfg(target_family = "unix")]
+            {
+                use std::os::unix::prelude::PermissionsExt;
+
+                return walked_path.extension().is_none()
+                    && walked_path.metadata().unwrap().permissions().mode() & 0o111 != 0;
+            }
+
+            #[cfg(target_family = "windows")]
+            {
+                use std::ffi::OsStr;
+
+                return walked_path.extension().unwrap_or_else(|| OsStr::new("")) == "exe";
+            }
         })
         .map(|e| return e.into_path())
         .collect::<Vec<PathBuf>>();

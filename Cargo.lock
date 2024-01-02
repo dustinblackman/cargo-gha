@@ -188,7 +188,6 @@ dependencies = [
  "anyhow",
  "async-compression",
  "cargo-husky",
- "cfg-if",
  "clap",
  "ctrlc",
  "detect-targets",
