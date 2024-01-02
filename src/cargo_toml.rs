@@ -75,9 +75,7 @@ pub fn add_asset(asset: &Asset) -> Result<()> {
     asset_table.insert("tag", Item::Value(asset.tag.clone().into()));
     asset_table.insert(
         "binaries",
-        Item::Value(Value::Array(Array::from_iter(
-            asset.binaries.clone().into_iter(),
-        ))),
+        Item::Value(Value::Array(Array::from_iter(asset.binaries.clone()))),
     );
 
     let mut target_archives_table = InlineTable::default();
