@@ -2,9 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.2
+
+_2024-01-02_ - [v1.0.1...v1.0.2](https://github.com/dustinblackman/cargo-gha/compare/v1.0.1...v1.0.2)
+
+### 🐛 Bug Fixes
+
+- Toml lookup in add assets - ([f9f2d61](https://github.com/dustinblackman/cargo-gha/commit/f9f2d61f9d9569c0955dd7b3cbc7a087853b55fd))
+- Release command - ([6d5390f](https://github.com/dustinblackman/cargo-gha/commit/6d5390f31555556cc767ce982518323f522af728))
+
 ## 1.0.1
 
 _2024-01-02_ - [v1.0.0...v1.0.1](https://github.com/dustinblackman/cargo-gha/compare/v1.0.0...v1.0.1)
+
+### ⛰️ Features
+
+- Release v1.0.1 - ([c6480e3](https://github.com/dustinblackman/cargo-gha/commit/c6480e304880b6d2f1e59deab54ba46ffb018c68))
 
 ### 🐛 Bug Fixes
 
