@@ -97,6 +97,6 @@ release = '''set -e
   git push --tags
 
   cargo publish
-  cargo gha gh release create "v$GHA_VERSION" --generate-notes
-  cargo bin git-cliff --latest --strip header | cargo bin dprint fmt --stdin md | cargo gha gh release edit "v$GHA_VERSION" --notes-file -
+  cargo run gh release create "v$GHA_VERSION" --generate-notes
+  cargo bin git-cliff --latest --strip header | cargo bin dprint fmt --stdin md | cargo run -- gh release edit "v$GHA_VERSION" --notes-file -
 '''
