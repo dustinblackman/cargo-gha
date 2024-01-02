@@ -130,21 +130,30 @@ pub async fn run() -> Result<()> {
         .num_args(0)
         .help("Print help");
 
+    let arg_version = Arg::new("version")
+        .short('V')
+        .long("version")
+        .num_args(0)
+        .help("Print version");
+
     let mut app = Command::new("cargo-gha")
         .about(env!("CARGO_PKG_DESCRIPTION"))
         .author(env!("CARGO_PKG_AUTHORS"))
         .version(env!("CARGO_PKG_VERSION"))
         .arg_required_else_help(false)
         .ignore_errors(true)
+        .disable_version_flag(true)
         .arg(arg_add.clone())
         .arg(arg_install.clone())
+        .arg(arg_version.clone())
         .subcommand(
             Command::new("gha")
                 .hide(true)
                 .disable_help_flag(true)
                 .arg(arg_add)
                 .arg(arg_install)
-                .arg(arg_help),
+                .arg(arg_help)
+                .arg(arg_version),
         );
 
     let matches = app.clone().get_matches();
@@ -155,6 +164,8 @@ pub async fn run() -> Result<()> {
         install().await?;
     } else if bool_arg_used(&matches, "help") {
         app.print_long_help()?;
+    } else if bool_arg_used(&matches, "version") {
+        println!("cargo-run-bin {}", env!("CARGO_PKG_VERSION"));
     } else {
         let mut args: Vec<_> = env::args().collect();
         let start_index = args.iter().position(|e| return e.ends_with("/cargo-gha"));
@@ -166,6 +177,10 @@ pub async fn run() -> Result<()> {
         let mut bin_index = start_index.unwrap() + 1;
         if args[bin_index] == "gha" {
             bin_index += 1;
+        }
+        if bin_index >= args.len() {
+            app.print_long_help()?;
+            return Ok(());
         }
 
         let binary_name = args[bin_index].clone();
