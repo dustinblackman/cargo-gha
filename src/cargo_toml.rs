@@ -103,7 +103,7 @@ pub fn add_asset(asset: &Asset) -> Result<()> {
     );
 
     let mut root_key = "package";
-    if doc.get("workspace").is_some() && doc["workspace"]["metadata"].get("gha").is_some() {
+    if toml_has_path(doc.as_item(), vec!["workspace", "metadata", "gha"]) {
         root_key = "workspace";
     }
 
