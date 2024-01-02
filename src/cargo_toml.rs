@@ -32,6 +32,18 @@ pub struct Metadata {
     pub targets: Vec<String>,
 }
 
+fn toml_has_path(doc: &Item, keys: Vec<&str>) -> bool {
+    let mut item = doc;
+    for key in keys {
+        if item.get(key).is_none() {
+            return false;
+        }
+        item = &item[key];
+    }
+
+    return true;
+}
+
 pub fn deserailize_metadata() -> Result<Metadata> {
     let toml_str: String =
         fs::read_to_string(filesystem::get_project_root()?.join("Cargo.toml"))?.parse()?;
@@ -42,11 +54,12 @@ pub fn deserailize_metadata() -> Result<Metadata> {
     let metadata = metadata_res?;
 
     let mut asset_doc = None;
-    if doc.get("package").is_some() && doc["package"]["metadata"]["gha"].get("assets").is_some() {
+    if toml_has_path(doc.as_item(), vec!["package", "metadata", "gha", "assets"]) {
         asset_doc = Some(doc["package"]["metadata"]["gha"]["assets"].clone());
-    } else if doc.get("workspace").is_some()
-        && doc["workspace"]["metadata"]["gha"].get("assets").is_some()
-    {
+    } else if toml_has_path(
+        doc.as_item(),
+        vec!["workspace", "metadata", "gha", "assets"],
+    ) {
         asset_doc = Some(doc["workspace"]["metadata"]["gha"]["assets"].clone());
     }
 
