@@ -1,0 +1,42 @@
+on: [push, pull_request]
+
+name: ci
+
+jobs:
+  test_coverage:
+    name: cargo-gha
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-directories: ".bin"
+
+      - name: Install deps
+        run: |
+          cargo install cargo-run-bin
+          cargo cmd setup-nightly
+      - name: Build
+        run: cargo build
+      - name: Lint
+        run: cargo cmd lint
+
+  test:
+    name: cargo-gha
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-directories: ".bin"
+      - name: Build
+        run: cargo build
