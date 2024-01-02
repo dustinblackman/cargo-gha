@@ -168,7 +168,9 @@ pub async fn run() -> Result<()> {
         println!("cargo-run-bin {}", env!("CARGO_PKG_VERSION"));
     } else {
         let mut args: Vec<_> = env::args().collect();
-        let start_index = args.iter().position(|e| return e.ends_with("/cargo-gha"));
+        let start_index = args
+            .iter()
+            .position(|e| return e.ends_with("/cargo-gha") || e.ends_with("cargo-gha.exe"));
         if start_index.is_none() || start_index.unwrap() == (args.len() + 1) {
             app.print_long_help()?;
             return Ok(());

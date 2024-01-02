@@ -1,14 +1,18 @@
 use std::env;
 use std::fs;
 use std::io::Write;
-use std::os::unix::prelude::OpenOptionsExt;
+use std::path;
 
 use anyhow::Result;
+use cfg_if::cfg_if;
 
 use crate::cargo_toml;
 use crate::filesystem;
 
-fn create_shim(binary: &str) -> Result<String> {
+#[cfg(target_family = "unix")]
+fn create_shim(binary: &str, bin_path: path::PathBuf) -> Result<()> {
+    use std::os::unix::prelude::OpenOptionsExt;
+
     let shell = env::var("SHELL")
         .unwrap_or("bash".to_string())
         .split('/')
@@ -26,7 +30,33 @@ else
 fi"#
     );
 
-    return Ok(script);
+    let mut f = fs::OpenOptions::new()
+        .create(true)
+        .write(true)
+        .mode(0o770)
+        .open(bin_path)?;
+
+    write!(f, "{}", script)?;
+
+    return Ok(());
+}
+
+#[cfg(not(target_family = "unix"))]
+fn create_shim(binary: &str, bin_path: path::PathBuf) -> Result<()> {
+    let script = format!(
+        r#"@echo off
+cargo gha {binary} %*
+"#
+    );
+
+    let mut f = fs::OpenOptions::new()
+        .create(true)
+        .write(true)
+        .open(bin_path)?;
+
+    write!(f, "{}", script)?;
+
+    return Ok(());
 }
 
 pub fn create(assets: Vec<cargo_toml::Asset>) -> Result<()> {
@@ -37,18 +67,23 @@ pub fn create(assets: Vec<cargo_toml::Asset>) -> Result<()> {
 
     for asset in assets {
         for binary in asset.binaries {
-            let script = create_shim(&binary)?;
-            let bin_path = bin_dir.join(&binary);
+            let mut bin_path = bin_dir.join(&binary);
+
+            bin_path.set_extension("");
+            cfg_if! {
+                if #[cfg(not(target_family = "unix"))] {
+                    bin_path.set_extension("cmd");
+                }
+            }
             if bin_path.exists() {
                 continue;
             }
-            let mut f = fs::OpenOptions::new()
-                .create(true)
-                .write(true)
-                .mode(0o770)
-                .open(&bin_path)?;
 
-            write!(f, "{}", script)?;
+            if bin_path.exists() {
+                continue;
+            }
+
+            create_shim(&binary, bin_path)?;
         }
     }
 

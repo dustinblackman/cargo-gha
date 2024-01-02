@@ -16,6 +16,7 @@ description = "Version lock, cache, and run binaries from any Github Release ass
 [dependencies]
 anyhow = "1.0.75"
 async-compression = { version = "0.4.1", features = ["tokio", "gzip", "xz"] }
+cfg-if = "1.0.0"
 clap = "4.3.23"
 ctrlc = "3.4.0"
 detect-targets = "0.1.10"
