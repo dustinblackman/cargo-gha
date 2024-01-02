@@ -3,8 +3,8 @@ use std::fs;
 
 use anyhow::Result;
 use serde::Deserialize;
-use toml_edit::value;
 use toml_edit::Array;
+use toml_edit::ArrayOfTables;
 use toml_edit::Document;
 use toml_edit::InlineTable;
 use toml_edit::Item;
@@ -41,22 +41,22 @@ pub fn deserailize_metadata() -> Result<Metadata> {
     let metadata_res: Result<MetadataValue, toml::de::Error> = toml::from_str(&metadata_str);
     let metadata = metadata_res?;
 
-    let mut asset_str = "".to_string();
+    let mut asset_doc = None;
     if doc.get("package").is_some() && doc["package"]["metadata"]["gha"].get("assets").is_some() {
-        asset_str = doc["package"]["metadata"]["gha"]["assets"].to_string();
+        asset_doc = Some(doc["package"]["metadata"]["gha"]["assets"].clone());
     } else if doc.get("workspace").is_some()
         && doc["workspace"]["metadata"]["gha"].get("assets").is_some()
     {
-        asset_str = doc["workspace"]["metadata"]["gha"]["assets"].to_string();
+        asset_doc = Some(doc["workspace"]["metadata"]["gha"]["assets"].clone());
     }
 
     let mut assets: Vec<Asset> = vec![];
-    if !asset_str.is_empty() {
-        let asset_res: Result<HashMap<String, Asset>, toml::de::Error> = toml::from_str(&asset_str);
-        assets = asset_res?
-            .values()
-            .map(|e| return e.clone())
-            .collect::<Vec<Asset>>();
+    if let Some(asset_doc) = asset_doc {
+        let mut tmp_doc = Document::new();
+        tmp_doc["items"] = asset_doc;
+        let asset_res: Result<HashMap<String, Vec<Asset>>, toml::de::Error> =
+            toml::from_str(&tmp_doc.to_string());
+        assets = asset_res?.get("items").unwrap().to_vec();
     }
 
     return Ok(Metadata {
@@ -70,14 +70,14 @@ pub fn add_asset(asset: &Asset) -> Result<()> {
     let toml_str: String = fs::read_to_string(&config_path)?.parse()?;
     let mut doc = toml_str.parse::<Document>()?;
 
-    let owner_repo = &asset.owner_repo.replace(['-', '/'], "_");
-
-    let mut asset_table = InlineTable::default();
-    asset_table.insert("tag", asset.tag.clone().into());
-    asset_table.insert("owner_repo", asset.owner_repo.clone().into());
+    let mut asset_table = Table::default();
+    asset_table.insert("owner_repo", Item::Value(asset.owner_repo.clone().into()));
+    asset_table.insert("tag", Item::Value(asset.tag.clone().into()));
     asset_table.insert(
         "binaries",
-        Array::from_iter(asset.binaries.clone().into_iter()).into(),
+        Item::Value(Value::Array(Array::from_iter(
+            asset.binaries.clone().into_iter(),
+        ))),
     );
 
     let mut target_archives_table = InlineTable::default();
@@ -86,14 +86,19 @@ pub fn add_asset(asset: &Asset) -> Result<()> {
         target_archives_table.insert(&target, archive.into());
     }
 
-    asset_table.insert("target_archives", target_archives_table.into());
+    asset_table.insert(
+        "target_archives",
+        Item::Value(Value::InlineTable(target_archives_table)),
+    );
 
     if doc["package"]["metadata"]["gha"].get("assets").is_none() {
-        doc["package"]["metadata"]["gha"]["assets"] = Item::Table(Table::new());
+        doc["package"]["metadata"]["gha"]["assets"] = Item::ArrayOfTables(ArrayOfTables::new());
     }
 
-    doc["package"]["metadata"]["gha"]["assets"][owner_repo] =
-        value(Value::InlineTable(asset_table));
+    let assets = doc["package"]["metadata"]["gha"]["assets"]
+        .as_array_of_tables_mut()
+        .unwrap();
+    assets.push(asset_table);
 
     fs::write(config_path, doc.to_string())?;
 

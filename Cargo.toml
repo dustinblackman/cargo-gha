@@ -38,39 +38,25 @@ cargo-husky = { version = "1.5.0", default-features = false, features = ["user-h
 
 [package.metadata.bin]
 cargo-binstall = { version = "1.3.1" }
-cargo-bundle-licenses = { version = "1.0.1" }
 cargo-cmd = { version = "0.3.1" }
 cargo-deny = { version = "0.13.5" }
-cargo-dist = { version = "0.2.0" }
-cargo-release = { version = "0.24.11" }
 committed = { version = "1.0.20" }
 dprint = { version = "0.40.2" }
 git-cliff = { version = "1.3.1" }
 
 [package.metadata.gha]
-targets = ["x86_64-apple-darwin"]
+targets = ["aarch64-apple-darwin"]
+
+[[package.metadata.gha.assets]]
+owner_repo = "cli/cli"
+tag = "v2.40.1"
+binaries = ["gh"]
+target_archives = { aarch64-apple-darwin = "gh_{NOVTAG}_macOS_arm64.zip" }
 
 [profile.release]
 opt-level = 3
 lto = "thin"
 strip = "symbols"
-
-[profile.dist]
-inherits = "release"
-
-# Config for 'cargo dist'
-[workspace.metadata.dist]
-cargo-dist-version = "0.2.0"
-ci = ["github"]
-installers = []
-targets = ["x86_64-unknown-linux-gnu", "x86_64-apple-darwin", "aarch64-apple-darwin"]
-unix-archive = ".tar.gz"
-include = ["THIRDPARTY.md"]
-
-# Config for 'cargo release'
-[package.metadata.release]
-pre-release-hook = ["bash", "-c", "cargo cmd lint && cargo bin git-cliff -o CHANGELOG.md --tag {{version}} && cargo bin dprint fmt"]
-allow-branch = ["main"]
 
 [package.metadata.commands]
 lint = '''set -e
